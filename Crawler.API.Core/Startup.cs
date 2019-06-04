@@ -1,4 +1,5 @@
 ﻿using Crawler.API.Core.Interfaces;
+using Crawler.API.Core.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,6 @@ namespace Crawler.API.Core
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddTransient<IHttpClientService, IHttpClientService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<IHttpClientService, HttpClientService>();
         }
