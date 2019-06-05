@@ -19,14 +19,12 @@ namespace Crawler.API.Core.Controllers
         private readonly DateTime _last2Week;
         private readonly DateTime _next2week;
 
-
         public OpenProjectController(IHttpService httpClientService)
         {
             _httpClientService = httpClientService;
             _today = DateTime.Now;
             _last2Week = _today.AddDays(-14).Date + new TimeSpan(0, 0, 0);
             _next2week = _today.AddDays(28).Date + new TimeSpan(23, 59, 59);
-            
         }
 
         [Route("api/openproject/versions")]
