@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Crawler.API.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Crawler.API.Core.Controllers
@@ -7,11 +9,18 @@ namespace Crawler.API.Core.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly IFirebaseAccountService _firebaseAccountService;
+
+        public ValuesController(IFirebaseAccountService firebaseAccountService)
+        {
+            _firebaseAccountService = firebaseAccountService;
+        }
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ActionResult<IEnumerable<string>>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var acc = await _firebaseAccountService.GetAccountByEmail("duylamln@gmail.com");
+            return Ok(acc);
         }
 
         // GET api/values/5

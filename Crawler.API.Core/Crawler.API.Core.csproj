@@ -5,14 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="DLLs\" />
     <Folder Include="Shared\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FireSharp" Version="2.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="FireSharp.Core">
+      <HintPath>DLLs\FireSharp.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
