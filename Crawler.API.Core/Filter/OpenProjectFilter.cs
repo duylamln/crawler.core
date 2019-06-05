@@ -1,6 +1,6 @@
-﻿using FireSharp;
-using FireSharp.Config;
-using FireSharp.Interfaces;
+﻿using FireSharp.Core;
+using FireSharp.Core.Config;
+using FireSharp.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Linq;
