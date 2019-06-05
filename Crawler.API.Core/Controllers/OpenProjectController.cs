@@ -1,4 +1,5 @@
-﻿using Crawler.API.Core.Interfaces;
+﻿using Crawler.API.Core.Filter;
+using Crawler.API.Core.Interfaces;
 using Crawler.API.Core.Models;
 using Crawler.API.Core.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 namespace Crawler.API.Core.Controllers
 {
     [ApiController]
+    [OpenProjectFilter]
     public class OpenProjectController: ControllerBase
     {
         private readonly IHttpClientService _httpClientService;
