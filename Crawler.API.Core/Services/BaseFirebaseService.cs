@@ -12,10 +12,11 @@ namespace Crawler.API.Core.Services
             {
                 AuthSecret = "GMOaOxZPVCGHMmzxDP73w6OApbhgpUBN4EoiL5GN",
                 BasePath = "https://t2ptimesheetmanagement.firebaseio.com/"
+                //AuthSecret = "s4slfg7z0FZB0TUmc3P1IO9gUU6PkIKqLaykYCTw",
+                //BasePath = "https://testfirebase-b5b33.firebaseio.com/"
             };
 
             return new FirebaseClient(config);
-
         }
     }
 }

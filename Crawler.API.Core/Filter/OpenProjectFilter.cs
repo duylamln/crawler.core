@@ -1,49 +1,31 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Primitives;
+﻿using Crawler.API.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using FireSharp.Config;
-using FireSharp;
-using FireSharp.Response;
-using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 namespace Crawler.API.Core.Filter
 {
     public class OpenProjectFilter : ActionFilterAttribute
     {
-        private IFirebaseConfig _firebaseConfig;
-
-        public override void OnResultExecuting(ResultExecutingContext context)
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
-            //IEnumerable<string> headerEmail;
             var emailHeader = context.HttpContext.Request.Headers["email"].SingleOrDefault();
 
             if (string.IsNullOrWhiteSpace(emailHeader))
                 context.Result = new BadRequestObjectResult(context.ModelState);
             else
-                //FireBase();
+            {
+                var firebaseAccountService = context.HttpContext.RequestServices.GetService<IFirebaseAccountService>();
+                var accountInfo = firebaseAccountService.GetAccountByEmail(emailHeader).Result;
 
-            
-            base.OnResultExecuting(context);
+                if (string.IsNullOrWhiteSpace(accountInfo.OpenProjectAPIKey))
+                    context.Result = new BadRequestObjectResult(context.ModelState);
+                else
+                    context.HttpContext.Request.Headers.Add("openProjectAPIKey", accountInfo.OpenProjectAPIKey);
+            }
+
+            base.OnActionExecuting(context);
         }
-
-        //private async void FireBase()
-        //{
-        //    _firebaseConfig = new FirebaseConfig
-        //    {
-        //        AuthSecret = "s4slfg7z0FZB0TUmc3P1IO9gUU6PkIKqLaykYCTw",
-        //        BasePath = "https://testfirebase-b5b33.firebaseio.com/",
-        //    };
-
-        //    var _client = new FirebaseClient(_firebaseConfig);
-        //    var response = await _client.GetTaskAsync("accounts");
-
-        //    var jsonObject = JObject.Parse(response.Body);
-
-        //    Console.WriteLine();
-        //}
     }
 }
