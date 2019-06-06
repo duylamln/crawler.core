@@ -19,7 +19,7 @@ namespace Crawler.API.Core.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> Get()
         {
-            var acc = await _firebaseAccountService.GetAccountByEmail("duylamln@gmail.com");
+            var acc = await _firebaseAccountService.GetAccountByEmail("duylamln111@gmail.com");
             return Ok(acc);
         }
 

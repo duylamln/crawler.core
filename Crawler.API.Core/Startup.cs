@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 
 namespace Crawler.API.Core
 {
@@ -40,6 +41,13 @@ namespace Crawler.API.Core
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            //app.UseDefaultFiles(new DefaultFilesOptions
+            //{
+            //    DefaultFileNames = new List<string> { "index.html" }
+            //});
+            //app.UseStaticFiles();
+        
+            app.UseStaticFiles();
         }
     }
 }

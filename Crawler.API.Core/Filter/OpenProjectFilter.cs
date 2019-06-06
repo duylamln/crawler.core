@@ -13,16 +13,16 @@ namespace Crawler.API.Core.Filter
             var emailHeader = context.HttpContext.Request.Headers["email"].SingleOrDefault();
 
             if (string.IsNullOrWhiteSpace(emailHeader))
-                context.Result = new BadRequestObjectResult(context.ModelState);
+                context.Result = new UnauthorizedResult();
             else
             {
                 var firebaseAccountService = context.HttpContext.RequestServices.GetService<IFirebaseAccountService>();
                 var accountInfo = firebaseAccountService.GetAccountByEmail(emailHeader).Result;
-
-                if (string.IsNullOrWhiteSpace(accountInfo.OpenProjectAPIKey))
-                    context.Result = new BadRequestObjectResult(context.ModelState);
+                if (accountInfo == null || string.IsNullOrWhiteSpace(accountInfo.OpenProjectAPIKey)) context.Result = new UnauthorizedResult();
                 else
+                {
                     context.HttpContext.Request.Headers.Add("openProjectAPIKey", accountInfo.OpenProjectAPIKey);
+                }
             }
 
             base.OnActionExecuting(context);
