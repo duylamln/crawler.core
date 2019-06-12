@@ -9,9 +9,9 @@ namespace Crawler.API.Core.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private readonly IFirebaseAccountService _firebaseAccountService;
+        private readonly IFirebaseUserInfoService _firebaseAccountService;
 
-        public ValuesController(IFirebaseAccountService firebaseAccountService)
+        public ValuesController(IFirebaseUserInfoService firebaseAccountService)
         {
             _firebaseAccountService = firebaseAccountService;
         }
@@ -19,7 +19,8 @@ namespace Crawler.API.Core.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> Get()
         {
-            var acc = await _firebaseAccountService.GetAccountByEmail("duylamln@gmail.com");
+            //var acc = await _firebaseAccountService.GetByEmail("duylamln@gmail.com");
+            var acc = await _firebaseAccountService.GetByUId("RtWOkvlr0VdwqMwWEXOYyuap8FO2---");
             return Ok(acc);
         }
 

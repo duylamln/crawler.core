@@ -181,10 +181,12 @@ namespace Crawler.API.Core.Controllers
                 .Create(Request.Headers["openProjectAPIKey"].First())
                 .Get<OPCollection<OPWorkPackage>>(url);
 
+            if (wps == null || wps.Embedded == null || wps.Embedded.Elements == null) return new List<WorkPackage>();
+
             return wps.Embedded.Elements.Select(x => new WorkPackage
             {
                 Id = x.Id,
-                Subject = $"{x.Id} - {x.Subject} - {x.Links.Type.Title}",
+                Subject = $"{x.Id} - {x.Subject} - {x.Links?.Type?.Title}",
                 ProjectId = GetId(x.Links.Project.Href).Value,
                 ProjectName = x.Links.Project.Title,
                 VersionId = GetId(x.Links.Version.Href).Value,

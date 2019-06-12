@@ -10,19 +10,19 @@ namespace Crawler.API.Core.Filter
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            var emailHeader = context.HttpContext.Request.Headers["email"].SingleOrDefault();
+            var userUid= context.HttpContext.Request.Headers["uid"].SingleOrDefault();
 
-            if (string.IsNullOrWhiteSpace(emailHeader))
-                context.Result = new BadRequestObjectResult(context.ModelState);
+            if (string.IsNullOrWhiteSpace(userUid))
+                context.Result = new UnauthorizedResult();
             else
             {
-                var firebaseAccountService = context.HttpContext.RequestServices.GetService<IFirebaseAccountService>();
-                var accountInfo = firebaseAccountService.GetAccountByEmail(emailHeader).Result;
-
-                if (string.IsNullOrWhiteSpace(accountInfo.OpenProjectAPIKey))
-                    context.Result = new BadRequestObjectResult(context.ModelState);
+                var firebaseAccountService = context.HttpContext.RequestServices.GetService<IFirebaseUserInfoService>();
+                var userInfo = firebaseAccountService.GetByUId(userUid).Result;
+                if (userInfo == null || string.IsNullOrWhiteSpace(userInfo.OpenProjectAPIKey)) context.Result = new UnauthorizedResult();
                 else
-                    context.HttpContext.Request.Headers.Add("openProjectAPIKey", accountInfo.OpenProjectAPIKey);
+                {
+                    context.HttpContext.Request.Headers.Add("openProjectAPIKey", userInfo.OpenProjectAPIKey);
+                }
             }
 
             base.OnActionExecuting(context);
