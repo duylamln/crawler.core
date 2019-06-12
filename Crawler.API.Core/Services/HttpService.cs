@@ -13,6 +13,7 @@ namespace Crawler.API.Core.Services
     {
         private HttpClient _httpClient;
 
+
         public IHttpService Create(string apiKey)
         {
             _httpClient = new HttpClient();

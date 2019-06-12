@@ -1,5 +1,6 @@
 ﻿using Crawler.API.Core.Interfaces;
 using Crawler.API.Core.Services;
+using Crawler.API.Core.Shared.ExceptionHandling;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ namespace Crawler.API.Core
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<IHttpClientService, HttpClientService>();
-            services.AddTransient<IFirebaseAccountService, FirebaseAccountService>();
+            services.AddTransient<IFirebaseUserInfoService, FirebaseUserInfoService>();
             services.AddTransient<IHttpService, HttpService>();
         }
 
@@ -48,6 +49,7 @@ namespace Crawler.API.Core
             //app.UseStaticFiles();
         
             app.UseStaticFiles();
+            //app.ConfigureExceptionHandler();
         }
     }
 }
