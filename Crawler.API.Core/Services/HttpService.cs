@@ -16,11 +16,13 @@ namespace Crawler.API.Core.Services
 
         public IHttpService Create(string apiKey)
         {
-            _httpClient = new HttpClient();
-            string basicAuthHeader = Convert.ToBase64String(Encoding.ASCII.GetBytes($"apikey:{apiKey}"));
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", basicAuthHeader);
-            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+            if (_httpClient == null)
+            {
+                _httpClient = new HttpClient();
+                string basicAuthHeader = Convert.ToBase64String(Encoding.ASCII.GetBytes($"apikey:{apiKey}"));
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", basicAuthHeader);
+                _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }
             return this;
         }
 

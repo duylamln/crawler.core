@@ -19,9 +19,23 @@ namespace Crawler.API.Core
 
         public IConfiguration Configuration { get; }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost",
+                                        "http://duylamln.github.io")
+                                        .AllowAnyHeader()
+                                        .AllowAnyMethod();
+                });
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<IHttpClientService, HttpClientService>();
             services.AddTransient<IFirebaseUserInfoService, FirebaseUserInfoService>();
@@ -39,17 +53,20 @@ namespace Crawler.API.Core
             {
                 app.UseHsts();
             }
-
+            app.UseCors(MyAllowSpecificOrigins);
+            app.UseDefaultFiles(new DefaultFilesOptions
+            {
+                DefaultFileNames = new List<string> { "index.html" }
+            });
+            app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseMvc();
-            //app.UseDefaultFiles(new DefaultFilesOptions
-            //{
-            //    DefaultFileNames = new List<string> { "index.html" }
-            //});
-            //app.UseStaticFiles();
-        
-            app.UseStaticFiles();
+            
+
+            
             //app.ConfigureExceptionHandler();
+
+           
         }
     }
 }
