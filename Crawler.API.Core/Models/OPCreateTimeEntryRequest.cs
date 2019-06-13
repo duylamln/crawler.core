@@ -15,10 +15,16 @@ namespace Crawler.API.Core.Models
         public string Hours { get; set; }
 
         [JsonProperty("comment")]
-        public string Comment { get; set; }
+        public OPCreateTimeEntryRequestComment Comment { get; set; }
 
         [JsonProperty("spentOn")]
         public string SpentOn { get; set; }
+    }
+
+    public class OPCreateTimeEntryRequestComment
+    {
+        [JsonProperty("raw")]
+        public string Raw { get; set; }
     }
 
     public class OPCreateTimeEntryModelLink

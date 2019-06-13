@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System.Net;
 
 namespace Crawler.API.Core.Shared.ExceptionHandling
@@ -38,5 +39,10 @@ namespace Crawler.API.Core.Shared.ExceptionHandling
         public int StatusCode { get; set; }
         public string Message { get; set; }
         public string Detail { get; set; }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }

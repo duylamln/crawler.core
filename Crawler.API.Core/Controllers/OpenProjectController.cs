@@ -71,7 +71,7 @@ namespace Crawler.API.Core.Controllers
             var url = "https://travel2pay.openproject.com/api/v3/time_entries";
             var createTimeEntryRequest = new OPCreateTimeEntryRequest()
             {
-                Comment = model.Comment,
+                Comment = new OPCreateTimeEntryRequestComment { Raw = model.Comment },
                 Hours = $"PT{model.Hours}H",
                 Links = new OPCreateTimeEntryModelLink()
                 {
@@ -95,7 +95,7 @@ namespace Crawler.API.Core.Controllers
             var url = "https://travel2pay.openproject.com/api/v3/time_entries/" + model.Id;
             var createTimeEntryRequest = new OPCreateTimeEntryRequest()
             {
-                Comment = model.Comment,
+                Comment = new OPCreateTimeEntryRequestComment { Raw = model.Comment },
                 Hours = $"PT{model.Hours}H",
                 Links = new OPCreateTimeEntryModelLink()
                 {
