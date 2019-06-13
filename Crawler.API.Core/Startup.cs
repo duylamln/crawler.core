@@ -53,20 +53,15 @@ namespace Crawler.API.Core
             {
                 app.UseHsts();
             }
+            app.ConfigureExceptionHandler();
             app.UseCors(MyAllowSpecificOrigins);
-            app.UseDefaultFiles(new DefaultFilesOptions
-            {
-                DefaultFileNames = new List<string> { "index.html" }
-            });
-            app.UseStaticFiles();
+            //app.UseDefaultFiles(new DefaultFilesOptions
+            //{
+            //    DefaultFileNames = new List<string> { "index.html" }
+            //});
+            //app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseMvc();
-            
-
-            
-            //app.ConfigureExceptionHandler();
-
-           
         }
     }
 }

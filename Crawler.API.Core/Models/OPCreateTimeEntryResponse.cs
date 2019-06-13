@@ -15,7 +15,7 @@ namespace Crawler.API.Core.Models
         public long Id { get; set; }
 
         [JsonProperty("comment")]
-        public string Comment { get; set; }
+        public OpCreateTimeEntryResponseComment Comment { get; set; }
 
         [JsonProperty("spentOn")]
         public DateTimeOffset SpentOn { get; set; }
@@ -31,6 +31,18 @@ namespace Crawler.API.Core.Models
 
         [JsonProperty("_links")]
         public Links Links { get; set; }
+    }
+
+    public class OpCreateTimeEntryResponseComment
+    {
+        [JsonProperty("format")]
+        public string Format { get; set; }
+
+        [JsonProperty("raw")]
+        public string Raw { get; set; }
+
+        [JsonProperty("html")]
+        public string Html { get; set; }
     }
 
     public partial class Links
