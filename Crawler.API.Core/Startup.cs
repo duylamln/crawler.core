@@ -30,7 +30,8 @@ namespace Crawler.API.Core
                 builder =>
                 {
                     builder.WithOrigins("http://localhost",
-                                        "http://duylamln.github.io")
+                                        "http://duylamln.github.io",
+                                        "https://chemistorder-fac70.firebaseapp.com")
                                         .AllowAnyHeader()
                                         .AllowAnyMethod();
                 });
